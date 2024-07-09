@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 12:17:55 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/09 11:59:42 by rpisoner         ###   ########.fr       */
+/*   Created: 2024/07/09 10:02:24 by rpisoner          #+#    #+#             */
+/*   Updated: 2024/07/09 11:35:11 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	arg_checking(int argc, char *argv[])
 {
-	t_pipe	*v_pipe;
-	int		pid[2];
+	if (argc != 5 || !argv)
+		exit(1);
+}
 
-	v_pipe = NULL;
-	arg_checking(argc, argv);
-	init_t_pipe(&v_pipe, argv, envp);
-	pipe(v_pipe->pipe_fd);
-	child_one(v_pipe, argv[1], pid);
-	child_two(v_pipe, argv[4], pid);
-	close(v_pipe->pipe_fd[0]);
-	close(v_pipe->pipe_fd[1]);
-	waitpid(pid[0], NULL, 0);
-	waitpid(pid[1], NULL, 0);
+void	free_exit(t_pipe *v_pipe, int errcode)
+{
 	free_t_pipe(v_pipe);
-	return (0);
+	exit (errcode);
 }

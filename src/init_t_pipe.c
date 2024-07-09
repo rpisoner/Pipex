@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   init_t_pipe.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 12:17:55 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/09 11:59:42 by rpisoner         ###   ########.fr       */
+/*   Created: 2024/07/09 09:40:10 by rpisoner          #+#    #+#             */
+/*   Updated: 2024/07/09 10:30:28 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	init_t_pipe(t_pipe **v_pipe, char **argv, char **envp)
 {
-	t_pipe	*v_pipe;
-	int		pid[2];
-
-	v_pipe = NULL;
-	arg_checking(argc, argv);
-	init_t_pipe(&v_pipe, argv, envp);
-	pipe(v_pipe->pipe_fd);
-	child_one(v_pipe, argv[1], pid);
-	child_two(v_pipe, argv[4], pid);
-	close(v_pipe->pipe_fd[0]);
-	close(v_pipe->pipe_fd[1]);
-	waitpid(pid[0], NULL, 0);
-	waitpid(pid[1], NULL, 0);
-	free_t_pipe(v_pipe);
-	return (0);
+	*v_pipe = (t_pipe *)malloc(sizeof(t_pipe));
+	(*v_pipe)->argv = argv;
+	(*v_pipe)->envp = envp;
+	(*v_pipe)->path = search_path(envp);
+	command_path(*v_pipe, argv[2]);
+	command_path2(*v_pipe, argv[3]);
 }

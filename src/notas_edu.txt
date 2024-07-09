@@ -1,6 +1,0 @@
-	//lo primerito ver los args
-	pid_t	pipe_fd[2];
-	//lo segundito pipe fork dup2
-	//dentro de cada hijo tendras que buscar el path si existe
-	//el padre tendra que esperar pacientemente a que los hijos acaben
-	//tu mama es hombre jajaxd;

@@ -17,7 +17,14 @@ SRC_DIR = .
 #########################################################################################
 # Sources & objects
 #########################################################################################
-FILES = pipex
+FILES = pipex \
+		free \
+		errors \
+		children \
+		path_utils \
+		libft_utils \
+		init_t_pipe \
+		libft_utils2 
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix src/, $(addsuffix .o, $(FILES)))
 
