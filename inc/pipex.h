@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:20:17 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/09 11:59:34 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:00:36 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	command_path(t_pipe *v_pipe, char *command);
 void	command_path2(t_pipe *v_pipe, char *command);
 //INIT T_PIPE
 void	init_t_pipe(t_pipe **v_pipe, char **argv, char **envp);
-//COMMANDS
+//CHILDREN
 void	child_one(t_pipe *v_pipe, char *infile_name, int *pid);
 void	child_two(t_pipe *v_pipe, char *outfile_name, int *pid);
 //LIBFT_UTILS
@@ -48,7 +48,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(char const *s, char c);
 //ERRORS
-void	arg_checking(int argc, char *argv[]);
+void	arg_checking(int argc, char *argv[], char *envp[]);
 void	free_exit(t_pipe *v_pipe, int errcode);
 //FREE
 void	free_stuff(char **stuff);

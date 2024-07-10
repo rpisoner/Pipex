@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:32:00 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/09 12:15:41 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:35:45 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,11 @@ void	child_one(t_pipe *v_pipe, char *infile_name, int *pid)
 	{
 		infile_fd = open(infile_name, O_RDONLY);
 		if (infile_fd < 0)
+		{
+			close(v_pipe->pipe_fd[0]);
+			close(v_pipe->pipe_fd[1]);
 			free_exit(v_pipe, 6);
+		}
 		dup2(infile_fd, STDIN_FILENO);
 		close(infile_fd);
 		dup2(v_pipe->pipe_fd[1], STDOUT_FILENO);
@@ -32,7 +36,6 @@ void	child_one(t_pipe *v_pipe, char *infile_name, int *pid)
 		if (execve(v_pipe->command_path, v_pipe->command_and_flags,
 				v_pipe->envp) == -1)
 		{
-			perror("FATAL");
 			free_exit(v_pipe, 2);
 		}
 	}
@@ -58,7 +61,6 @@ void	child_two(t_pipe *v_pipe, char *outfile_name, int *pid)
 		if (execve(v_pipe->command_path2, v_pipe->command_and_flags2,
 				v_pipe->envp) == -1)
 		{
-			perror("MAL");
 			free_exit(v_pipe, 3);
 		}
 	}

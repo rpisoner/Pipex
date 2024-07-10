@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:17:55 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/09 11:59:42 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/10 12:00:11 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char *argv[], char *envp[])
 	int		pid[2];
 
 	v_pipe = NULL;
-	arg_checking(argc, argv);
+	arg_checking(argc, argv, envp);
 	init_t_pipe(&v_pipe, argv, envp);
 	pipe(v_pipe->pipe_fd);
 	child_one(v_pipe, argv[1], pid);
