@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:21:27 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/10 18:28:57 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:33:25 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ char	**search_path(char **envp)
 		i++;
 	}
 	return (path);
+}
+
+void	set_command_free(t_pipe *v_pipe, char *command, char *command_path)
+{
+	v_pipe->command_path = command;
+	free(command_path);
+}
+
+void	set_command2_free(t_pipe *v_pipe, char *command, char *command_path)
+{
+	v_pipe->command_path2 = command;
+	free(command_path);
 }
 
 void	command_path(t_pipe *v_pipe, char *command)
@@ -49,7 +61,7 @@ void	command_path(t_pipe *v_pipe, char *command)
 		free(slash_join);
 	}
 	if (ft_strchr(command, '/') != 0)
-		v_pipe->command_path = command;
+		set_command_free(v_pipe, command, command_path);
 	else
 		v_pipe->command_path = command_path;
 	v_pipe->p_command_eq_command = ft_strchr(command, '/') != 0;
@@ -77,7 +89,7 @@ void	command_path2(t_pipe *v_pipe, char *command)
 		free(slash_join);
 	}
 	if (ft_strchr(command, '/') != 0)
-		v_pipe->command_path2 = command;
+		set_command2_free(v_pipe, command, command_path);
 	else
 		v_pipe->command_path2 = command_path;
 	v_pipe->p_command_eq_command2 = ft_strchr(command, '/') != 0;
