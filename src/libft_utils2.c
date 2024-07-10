@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:14:22 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/09 10:57:08 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:20:29 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,43 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	}
 	new[i] = '\0';
 	return (new);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	while (*(s + i) != (char)c)
+	{
+		if (*(s + i) == '\0')
+			return (0);
+		i++;
+	}
+	return ((char *)(s + i));
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (*(str1 + i) > *(str2 + i))
+			return ((int)*(str1 + i) - (int)*(str2 + i));
+		else if (*(str1 + i) < *(str2 + i))
+			return ((int)*(str1 + i) - (int)*(str2 + i));
+		i++;
+	}
+	if (s1[i] == '\0' && s2[i] == '\0')
+		return (0);
+	else if (s1[i] == '\0')
+		return (-(int)s2[i]);
+	else
+		return ((int)s1[i] - (int)s2[i]);
 }

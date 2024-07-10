@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:20:17 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/10 12:00:36 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:06:47 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_pipe
 	char	**command_and_flags;
 	char	*command_path2;
 	char	**command_and_flags2;
+	int		p_command_eq_command;
+	int		p_command_eq_command2;
 	pid_t	pipe_fd[2];
 }	t_pipe;
 
@@ -47,9 +49,11 @@ size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(char const *s, char c);
+char	*ft_strchr(const char *s, int c);
 //ERRORS
-void	arg_checking(int argc, char *argv[], char *envp[]);
+void	arg_checking(int argc, char *argv[]);
 void	free_exit(t_pipe *v_pipe, int errcode);
+void	open_error(t_pipe *v_pipe);
 //FREE
 void	free_stuff(char **stuff);
 void	free_t_pipe(t_pipe *v_pipe);
