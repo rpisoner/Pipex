@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:32:00 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/10 19:09:53 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/12 20:13:57 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,9 @@ void	child_one(t_pipe *v_pipe, char *infile_name, int *pid)
 		dup2(v_pipe->pipe_fd[1], STDOUT_FILENO);
 		close(v_pipe->pipe_fd[0]);
 		close(v_pipe->pipe_fd[1]);
-		if (execve(v_pipe->command_path, v_pipe->command_and_flags,
-				v_pipe->envp) == -1)
-		{
-			perror("Error");
-			free_exit(v_pipe, 2);
-		}
+		execve(v_pipe->command_path, v_pipe->command_and_flags, v_pipe->envp);
+		perror("Error");
+		free_exit(v_pipe, 2);
 	}
 }
 
@@ -55,11 +52,8 @@ void	child_two(t_pipe *v_pipe, char *outfile_name, int *pid)
 			free_exit(v_pipe, 7);
 		dup2(outfile_fd, STDOUT_FILENO);
 		close(outfile_fd);
-		if (execve(v_pipe->command_path2, v_pipe->command_and_flags2,
-				v_pipe->envp) == -1)
-		{
-			perror("Error");
-			free_exit(v_pipe, 3);
-		}
+		execve(v_pipe->command_path2, v_pipe->command_and_flags2, v_pipe->envp);
+		perror("Error");
+		free_exit(v_pipe, 3);
 	}
 }

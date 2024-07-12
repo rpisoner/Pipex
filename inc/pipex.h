@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:20:17 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/10 19:06:47 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/12 20:42:30 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct s_pipe
 	char	**command_and_flags;
 	char	*command_path2;
 	char	**command_and_flags2;
-	int		p_command_eq_command;
-	int		p_command_eq_command2;
+	int		free_cmd_path;
+	int		free_cmd_path2;
 	pid_t	pipe_fd[2];
 }	t_pipe;
 
