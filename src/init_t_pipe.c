@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 09:40:10 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/12 20:42:51 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:38:03 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	init_t_pipe(t_pipe **v_pipe, char **argv, char **envp)
 	{
 		(*v_pipe)->command_path = argv[2];
 		(*v_pipe)->command_and_flags = ft_split(argv[3], ' ');
-		(*v_pipe)->free_cmd_path = 0;
 	}
 	else
 		command_path(*v_pipe, argv[2]);
@@ -30,7 +29,6 @@ void	init_t_pipe(t_pipe **v_pipe, char **argv, char **envp)
 	{
 		(*v_pipe)->command_path2 = argv[3];
 		(*v_pipe)->command_and_flags2 = ft_split(argv[2], ' ');
-		(*v_pipe)->free_cmd_path = 0;
 	}
 	else
 		command_path2(*v_pipe, argv[3]);

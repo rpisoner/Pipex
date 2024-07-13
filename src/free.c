@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:40:28 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/12 20:42:33 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/13 16:31:27 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	free_t_pipe(t_pipe *v_pipe)
 {
 	if (v_pipe->path != NULL)
 	{
-		free_stuff(v_pipe->path);
-		if (v_pipe->free_cmd_path == 1)
+		if (v_pipe->path != NULL && v_pipe->command_path[0] != '\0')
 			free(v_pipe->command_path);
-		if (v_pipe->free_cmd_path2 == 1)
+		if (v_pipe->path != NULL && v_pipe->command_path2[0] != '\0')
 			free(v_pipe->command_path2);
+		free_stuff(v_pipe->path);
 	}
 	free_stuff(v_pipe->command_and_flags);
 	free_stuff(v_pipe->command_and_flags2);
