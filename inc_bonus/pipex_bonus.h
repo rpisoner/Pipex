@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: rpisoner <rpisoner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:20:17 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/16 12:03:46 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:54:10 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_pipe
 	char	**commands_paths;
 	char	***commands_and_flags;
 	int		pipe_fd[2];
+	int		aux_pipe_fd[2];
 }	t_pipe;
 
 //PATH_UTILS
@@ -45,12 +46,11 @@ char	**search_path(char **envp);
 void	command_path(t_pipe *v_pipe, char *command, int j);
 //INIT T_PIPE
 void	init_t_pipe(t_pipe **v_pipe, int argc, char **argv, char **envp);
-//CHILDREN
-void	child_one(t_pipe *v_pipe, char *infile_name, int *pid);
-void	child_two(t_pipe *v_pipe, char *outfile_name, int *pid);
+void	multi_pipe(t_pipe *v_pipe);
 //LIBFT_UTILS
 size_t	ft_strlen(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);

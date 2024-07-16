@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: rpisoner <rpisoner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 17:42:48 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/16 12:21:54 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:52:36 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,13 @@ int	main(int argc, char *argv[], char *envp[])
 	v_pipe = NULL;
 	arg_checking(argc, argv);
 	init_t_pipe(&v_pipe, argc, argv, envp);
-	//free_t_pipe(v_pipe);
+	if (ft_strcmp("here_doc", argv[1]) == 0)
+	{
+		//here_doc();
+	}
+	else
+	{
+		multi_pipe(v_pipe);
+	}
+	free_t_pipe(v_pipe);
 }

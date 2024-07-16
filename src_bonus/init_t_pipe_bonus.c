@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_t_pipe_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: rpisoner <rpisoner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 09:40:10 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/16 15:19:30 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/16 16:09:31 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,35 +27,40 @@ int	n_params_cmd(t_pipe *v_pipe)
 	return (n);
 }
 
-void	init_t_pipe(t_pipe **v_pipe, int argc, char **argv, char **envp)
+void	set_paths_and_flags(t_pipe **v_pipe)
 {
 	int	i;
 	int j;
 
 	i = 2;
 	j = 0;
-	*v_pipe = (t_pipe *)malloc(sizeof(t_pipe));
-	(*v_pipe)->argv = argv;
-	(*v_pipe)->argc = argc;
-	(*v_pipe)->envp = envp;
-	(*v_pipe)->path = search_path(envp);
-	(*v_pipe)->commands_paths = (char **)malloc(sizeof(char *) * (argc - 3));
-	(*v_pipe)->commands_and_flags = (char ***)malloc(sizeof(char **)
-			* n_params_cmd(*v_pipe));
-	if (!(*v_pipe) || !(*v_pipe)->commands_paths || !(*v_pipe)->commands_and_flags)
-		exit(1);
-	while (argv[i + 1] != NULL)
+	while ((*v_pipe)->argv[i + 1] != NULL)
 	{
-		if ((*v_pipe)->path == NULL || (argv[i][0] == '\0'))
+		if ((*v_pipe)->path == NULL || ((*v_pipe)->argv[i][0] == '\0'))
 		{
-			(*v_pipe)->commands_paths[j] = argv[i];
-			(*v_pipe)->commands_and_flags[j] = ft_split(argv[i], ' ');
+			(*v_pipe)->commands_paths[j] = (*v_pipe)->argv[i];
+			(*v_pipe)->commands_and_flags[j] = ft_split((*v_pipe)->argv[i], ' ');
 		}
 		else
-			command_path(*v_pipe, argv[i], j);
+			command_path(*v_pipe, (*v_pipe)->argv[i], j);
 		i++;
 		j++;
 	}
 	(*v_pipe)->commands_paths[j] = NULL;
 	(*v_pipe)->commands_and_flags[j] = NULL;
+}
+
+void	init_t_pipe(t_pipe **v_pipe, int argc, char **argv, char **envp)
+{
+	*v_pipe = (t_pipe *)malloc(sizeof(t_pipe));
+	(*v_pipe)->argv = argv;
+	(*v_pipe)->argc = argc;
+	(*v_pipe)->envp = envp;
+	(*v_pipe)->path = search_path(envp);
+	(*v_pipe)->commands_paths = (char **)malloc(sizeof(char *) * (argc - 2));
+	(*v_pipe)->commands_and_flags = (char ***)malloc(sizeof(char **)
+			* n_params_cmd(*v_pipe));
+	if (!(*v_pipe) || !(*v_pipe)->commands_paths || !(*v_pipe)->commands_and_flags)
+		exit(1);
+	set_paths_and_flags(v_pipe);
 }
