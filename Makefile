@@ -17,7 +17,7 @@
 NAME = pipex
 BONUS_NAME = pipex_bonus
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 
 #########################################################################################
