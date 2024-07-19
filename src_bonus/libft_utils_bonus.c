@@ -6,45 +6,50 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:04:22 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/19 10:42:41 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/19 20:58:00 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc_bonus/pipex_bonus.h"
 
-	size_t	ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char			*substr;
+	size_t			i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	if (len > ((unsigned int)ft_strlen(s)) - start)
+		len = ((unsigned int)ft_strlen(s)) - start;
+	if (start > ft_strlen(s))
 	{
-		size_t	i;
-
-		if (!s)
-			return (0);
-		i = 0;
-		while (s[i] != '\0')
-			i++;
-		return (i);
-	}
-
-	char	*ft_substr(char const *s, unsigned int start, size_t len)
-	{
-		char			*substr;
-		size_t			i;
-
-		i = 0;
-		if (len > ((unsigned int)ft_strlen(s)) - start)
-			len = ((unsigned int)ft_strlen(s)) - start;
-		if (start > ft_strlen(s))
-			return ("");
-		substr = (char *)malloc(len + 1);
-		if (!substr)
-			return (0);
-		while (i < len && *(s + i) != '\0')
-		{
-			*(substr + i) = *(s + start + i);
-			i++;
-		}
-		*(substr + i) = '\0';
+		substr = "";
 		return (substr);
 	}
+	substr = (char *)malloc(len + 1);
+	if (!substr)
+		return (0);
+	while (i < len && *(s + i) != '\0')
+	{
+		*(substr + i) = *(s + start + i);
+		i++;
+	}
+	*(substr + i) = '\0';
+	return (substr);
+}
 
 static int	ft_wc(char const *s, char c)
 {

@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:14:22 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/19 09:53:44 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/19 17:46:51 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ char	*ft_strchr(const char *s, int c)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	while (*(s + i) != (char)c)
 	{
 		if (*(s + i) == '\0')

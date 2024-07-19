@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 19:40:28 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/19 11:16:43 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/19 20:39:14 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ void	free_stuff(char **stuff)
 	free(stuff);
 	stuff = NULL;
 }
-
-
 
 void	free_t_pipe(t_pipe *v_pipe)
 {
@@ -51,6 +49,7 @@ void	free_t_pipe(t_pipe *v_pipe)
 	free(v_pipe->commands_paths);
 	if (v_pipe->path != NULL)
 		free_stuff(v_pipe->path);
-	free(v_pipe);
+	if (v_pipe)
+		free(v_pipe);
 	v_pipe = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:32:00 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/19 09:17:50 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/19 20:49:14 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ void	child_one(t_pipe *v_pipe, char *infile_name)
 		free_exit(v_pipe, 5);
 	if (pid == 0)
 	{
-		infile_fd = open(infile_name, O_RDONLY);
+		if (v_pipe->here_doc == 1)
+			infile_fd = open("here_doc", O_RDONLY);
+		else
+			infile_fd = open(infile_name, O_RDONLY);
 		if (infile_fd < 0)
 			open_error(v_pipe);
 		dup2(v_pipe->pipe_fd[1], STDOUT_FILENO);
@@ -62,17 +65,20 @@ void	middle_child(t_pipe *v_pipe, int i)
 	close(v_pipe->aux_pipe_fd[1]);
 }
 
-void	child_two(t_pipe *v_pipe, char *outfile_name, int arg_n)
+void	child_two(t_pipe *v_pipe, char *outfile_name, int arg_n, int *pid)
 {
 	int	outfile_fd;
-	int	pid;
 
-	pid = fork();
-	if (pid < 0)
+	*pid = fork();
+	if (*pid < 0)
 		free_exit(v_pipe, 5);
-	if (pid == 0)
+	if (*pid == 0)
 	{
-		outfile_fd = open(outfile_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (v_pipe->here_doc == 1)
+			outfile_fd = open(outfile_name, O_WRONLY | O_CREAT | O_APPEND,
+					0644);
+		else
+			outfile_fd = open(outfile_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (outfile_fd < 0)
 			open_error(v_pipe);
 		dup2(v_pipe->pipe_fd[0], STDIN_FILENO);
@@ -91,6 +97,8 @@ void	multi_pipe(t_pipe *v_pipe)
 {
 	int	i;
 	int	arg_n;
+	int	lc_pid;
+	int	status;
 
 	arg_n = 0;
 	i = 2;
@@ -105,5 +113,10 @@ void	multi_pipe(t_pipe *v_pipe)
 		i++;
 		arg_n++;
 	}
-	child_two(v_pipe, v_pipe->argv[v_pipe->argc - 1], arg_n);
+	if (v_pipe->here_doc == 0)
+		child_two(v_pipe, v_pipe->argv[v_pipe->argc - 1], arg_n, &lc_pid);
+	else
+		child_two(v_pipe, v_pipe->argv[v_pipe->argc - 1], arg_n - 1, &lc_pid);
+	waitpid(lc_pid, &status, 0);
+	v_pipe->status = WEXITSTATUS(status);
 }
