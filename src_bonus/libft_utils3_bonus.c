@@ -1,36 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors_bonus.c                                     :+:      :+:    :+:   */
+/*   libft_utils3_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/09 10:02:24 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/18 21:25:48 by rpisoner         ###   ########.fr       */
+/*   Created: 2024/07/19 09:06:47 by rpisoner          #+#    #+#             */
+/*   Updated: 2024/07/19 09:09:24 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc_bonus/pipex_bonus.h"
 
-void	arg_checking(int argc, char *argv[])
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	if (argc < 5 || !argv)
-		exit(1);
+	size_t		i;
+	char		*d;
+	const char	*s;
+
+	i = 0;
+	d = (char *)dst;
+	s = (const char *)src;
+	if (n == 0 || d == s)
+		return (dst);
+	while (n > 0)
+	{
+		d[i] = s[i];
+		i++;
+		n--;
+	}
+	return (dst);
 }
 
-void	free_exit(t_pipe *v_pipe, int errcode)
+char	*ft_strdup(const char *s)
 {
-	free_t_pipe(v_pipe);
-	v_pipe = NULL;
-	(void)v_pipe;
-	exit(errcode);
-}
+	char	*mem;
+	int		length;
 
-void	open_error(t_pipe *v_pipe)
-{
-	perror("Error");
-	close(v_pipe->pipe_fd[0]);
-	close(v_pipe->pipe_fd[1]);
-	free_exit(v_pipe, 6);
+	length = ft_strlen(s);
+	mem = malloc(length + 1);
+	if (mem == 0)
+		return (mem);
+	ft_memcpy(mem, s, length);
+	mem[length] = '\0';
+	return (mem);
 }
-

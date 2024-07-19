@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 17:14:22 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/15 17:47:32 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:53:44 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,10 @@ int	ft_countwords(char const *s)
 
 	i = 0;
 	contador = 0;
+	if (s[i] == '\0')
+	{
+		return (2);
+	}
 	while (s[i] != '\0')
 	{
 		while (s[i] == ' ')

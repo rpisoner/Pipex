@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   init_t_pipe_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpisoner <rpisoner@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 09:40:10 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/16 16:09:31 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:07:58 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc_bonus/pipex_bonus.h"
+
+void	print_stuff(char **stuff)
+{
+	size_t	i = 0;
+
+	while (stuff[i] != NULL)
+	{
+		printf("%s\n", stuff[i]);
+		i++;
+	}
+}
 
 int	n_params_cmd(t_pipe *v_pipe)
 {
@@ -30,7 +41,7 @@ int	n_params_cmd(t_pipe *v_pipe)
 void	set_paths_and_flags(t_pipe **v_pipe)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 2;
 	j = 0;
@@ -38,8 +49,9 @@ void	set_paths_and_flags(t_pipe **v_pipe)
 	{
 		if ((*v_pipe)->path == NULL || ((*v_pipe)->argv[i][0] == '\0'))
 		{
-			(*v_pipe)->commands_paths[j] = (*v_pipe)->argv[i];
-			(*v_pipe)->commands_and_flags[j] = ft_split((*v_pipe)->argv[i], ' ');
+			(*v_pipe)->commands_paths[j] = ft_strdup((*v_pipe)->argv[i]);
+			(*v_pipe)->commands_and_flags[j]
+				= ft_split((*v_pipe)->argv[i], ' ');
 		}
 		else
 			command_path(*v_pipe, (*v_pipe)->argv[i], j);
@@ -59,8 +71,9 @@ void	init_t_pipe(t_pipe **v_pipe, int argc, char **argv, char **envp)
 	(*v_pipe)->path = search_path(envp);
 	(*v_pipe)->commands_paths = (char **)malloc(sizeof(char *) * (argc - 2));
 	(*v_pipe)->commands_and_flags = (char ***)malloc(sizeof(char **)
-			* n_params_cmd(*v_pipe));
-	if (!(*v_pipe) || !(*v_pipe)->commands_paths || !(*v_pipe)->commands_and_flags)
+			* (n_params_cmd(*v_pipe) + 1));
+	if (!(*v_pipe) || !(*v_pipe)->commands_paths
+		|| !(*v_pipe)->commands_and_flags)
 		exit(1);
 	set_paths_and_flags(v_pipe);
 }

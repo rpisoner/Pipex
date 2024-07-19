@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpisoner <rpisoner@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:20:17 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/16 17:54:10 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:08:26 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
 int		ft_countwords(char const *s);
+char	*ft_strdup(const char *s);
 //ERRORS
 void	arg_checking(int argc, char *argv[]);
 void	free_exit(t_pipe *v_pipe, int errcode);

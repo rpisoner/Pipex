@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 09:40:10 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/15 18:04:34 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/19 09:10:18 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**search_path(char **envp)
 
 void	set_command_free(t_pipe *v_pipe, char *cmd, char *command_path, int j)
 {
-	v_pipe->commands_paths[j] = cmd;
+	v_pipe->commands_paths[j] = ft_strdup(cmd);
 	free(command_path);
 }
 
