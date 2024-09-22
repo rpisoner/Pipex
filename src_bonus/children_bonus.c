@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:32:00 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/19 20:49:14 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/20 08:35:52 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,9 @@ void	multi_pipe(t_pipe *v_pipe)
 	int	lc_pid;
 	int	status;
 
-	arg_n = 0;
 	i = 2;
+	arg_n = 0;
+	status = 0;
 	pipe(v_pipe->pipe_fd);
 	child_one(v_pipe, v_pipe->argv[arg_n++]);
 	close(v_pipe->pipe_fd[1]);

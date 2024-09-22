@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 18:21:27 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/13 16:38:24 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:27:33 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ char	**search_path(char **envp)
 
 void	set_command_free(t_pipe *v_pipe, char *command, char *command_path)
 {
-	v_pipe->command_path = command;
+	v_pipe->command_path = ft_strdup(command);
+	command_path = command_path + 0;
 	free(command_path);
 }
 
 void	set_command2_free(t_pipe *v_pipe, char *command, char *command_path)
 {
-	v_pipe->command_path2 = command;
+	v_pipe->command_path2 = ft_strdup(command);
 	free(command_path);
 }
 

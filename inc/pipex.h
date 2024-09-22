@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:20:17 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/13 16:37:55 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/09/22 14:05:18 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s);
 //ERRORS
 void	arg_checking(int argc, char *argv[]);
 void	free_exit(t_pipe *v_pipe, int errcode);

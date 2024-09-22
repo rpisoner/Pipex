@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 12:17:55 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/10 17:04:00 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/07/20 08:36:49 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_pipe	*v_pipe;
 	int		pid[2];
+	int		status;
 
 	v_pipe = NULL;
 	arg_checking(argc, argv);
@@ -26,7 +27,7 @@ int	main(int argc, char *argv[], char *envp[])
 	close(v_pipe->pipe_fd[0]);
 	close(v_pipe->pipe_fd[1]);
 	waitpid(pid[0], NULL, 0);
-	waitpid(pid[1], NULL, 0);
+	waitpid(pid[1], &status, 0);
 	free_t_pipe(v_pipe);
-	return (0);
+	exit (WEXITSTATUS(status));
 }

@@ -6,7 +6,7 @@
 #    By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/18 19:57:56 by rpisoner          #+#    #+#              #
-#    Updated: 2024/07/19 17:38:27 by rpisoner         ###   ########.fr        #
+#    Updated: 2024/09/22 14:05:46 by rpisoner         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 NAME = pipex
 BONUS_NAME = pipex_bonus
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 RM = rm -rf
 
 #########################################################################################
@@ -34,9 +34,10 @@ FILES = pipex \
 		errors \
 		children \
 		path_utils \
-		libft_utils \
 		init_t_pipe \
-		libft_utils2 
+		libft_utils \
+		libft_utils2 \
+		libft_utils3
 SRCS = $(addprefix src/, $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix src/, $(addsuffix .o, $(FILES)))
 

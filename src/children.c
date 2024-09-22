@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:32:00 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/12 20:13:57 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/09/22 16:35:06 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	child_one(t_pipe *v_pipe, char *infile_name, int *pid)
 
 	pid[0] = fork();
 	if (pid[0] < 0)
-		free_exit(v_pipe, 5);
+		free_exit(v_pipe, 1);
 	if (pid[0] == 0)
 	{
 		infile_fd = open(infile_name, O_RDONLY);
@@ -31,7 +31,7 @@ void	child_one(t_pipe *v_pipe, char *infile_name, int *pid)
 		close(v_pipe->pipe_fd[1]);
 		execve(v_pipe->command_path, v_pipe->command_and_flags, v_pipe->envp);
 		perror("Error");
-		free_exit(v_pipe, 2);
+		free_exit(v_pipe, 1);
 	}
 }
 
@@ -41,7 +41,7 @@ void	child_two(t_pipe *v_pipe, char *outfile_name, int *pid)
 
 	pid[1] = fork();
 	if (pid[1] < 0)
-		free_exit(v_pipe, 5);
+		free_exit(v_pipe, 1);
 	if (pid[1] == 0)
 	{
 		dup2(v_pipe->pipe_fd[0], STDIN_FILENO);
@@ -49,11 +49,11 @@ void	child_two(t_pipe *v_pipe, char *outfile_name, int *pid)
 		close(v_pipe->pipe_fd[1]);
 		outfile_fd = open(outfile_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (outfile_fd < 0)
-			free_exit(v_pipe, 7);
+			free_exit(v_pipe, 1);
 		dup2(outfile_fd, STDOUT_FILENO);
 		close(outfile_fd);
 		execve(v_pipe->command_path2, v_pipe->command_and_flags2, v_pipe->envp);
 		perror("Error");
-		free_exit(v_pipe, 3);
+		free_exit(v_pipe, 1);
 	}
 }
