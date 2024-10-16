@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:32:00 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/09/22 16:35:06 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:37:38 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	child_one(t_pipe *v_pipe, char *infile_name, int *pid)
 		close(v_pipe->pipe_fd[1]);
 		execve(v_pipe->command_path, v_pipe->command_and_flags, v_pipe->envp);
 		perror("Error");
-		free_exit(v_pipe, 1);
+		free_exit(v_pipe, 127);
 	}
 }
 
@@ -54,6 +54,6 @@ void	child_two(t_pipe *v_pipe, char *outfile_name, int *pid)
 		close(outfile_fd);
 		execve(v_pipe->command_path2, v_pipe->command_and_flags2, v_pipe->envp);
 		perror("Error");
-		free_exit(v_pipe, 1);
+		free_exit(v_pipe, 127);
 	}
 }

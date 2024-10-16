@@ -6,7 +6,7 @@
 /*   By: rpisoner <rpisoner@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 11:32:00 by rpisoner          #+#    #+#             */
-/*   Updated: 2024/07/20 08:35:52 by rpisoner         ###   ########.fr       */
+/*   Updated: 2024/10/16 11:36:56 by rpisoner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	child_one(t_pipe *v_pipe, char *infile_name)
 
 	pid = fork();
 	if (pid < 0)
-		free_exit(v_pipe, 5);
+		free_exit(v_pipe, 1);
 	if (pid == 0)
 	{
 		if (v_pipe->here_doc == 1)
@@ -36,7 +36,7 @@ void	child_one(t_pipe *v_pipe, char *infile_name)
 		execve(v_pipe->commands_paths[0], v_pipe->commands_and_flags[0],
 			v_pipe->envp);
 		perror("Error");
-		free_exit(v_pipe, 2);
+		free_exit(v_pipe, 127);
 	}
 }
 
@@ -46,7 +46,7 @@ void	middle_child(t_pipe *v_pipe, int i)
 
 	pid = fork();
 	if (pid < 0)
-		free_exit(v_pipe, 6);
+		free_exit(v_pipe, 1);
 	if (pid == 0)
 	{
 		dup2(v_pipe->pipe_fd[0], STDIN_FILENO);
@@ -57,7 +57,7 @@ void	middle_child(t_pipe *v_pipe, int i)
 		execve(v_pipe->commands_paths[i], v_pipe->commands_and_flags[i],
 			v_pipe->envp);
 		perror("Error");
-		free_exit(v_pipe, 4);
+		free_exit(v_pipe, 127);
 	}
 	waitpid(pid, NULL, 0);
 	close(v_pipe->pipe_fd[0]);
@@ -71,7 +71,7 @@ void	child_two(t_pipe *v_pipe, char *outfile_name, int arg_n, int *pid)
 
 	*pid = fork();
 	if (*pid < 0)
-		free_exit(v_pipe, 5);
+		free_exit(v_pipe, 1);
 	if (*pid == 0)
 	{
 		if (v_pipe->here_doc == 1)
@@ -89,7 +89,7 @@ void	child_two(t_pipe *v_pipe, char *outfile_name, int arg_n, int *pid)
 		execve(v_pipe->commands_paths[arg_n],
 			v_pipe->commands_and_flags[arg_n], v_pipe->envp);
 		perror("Error");
-		free_exit(v_pipe, 3);
+		free_exit(v_pipe, 127);
 	}
 }
 
@@ -109,7 +109,7 @@ void	multi_pipe(t_pipe *v_pipe)
 	while (i < v_pipe->argc - 3)
 	{
 		if (pipe(v_pipe->aux_pipe_fd) < 0)
-			free_exit(v_pipe, 8);
+			free_exit(v_pipe, 1);
 		middle_child(v_pipe, arg_n);
 		i++;
 		arg_n++;
